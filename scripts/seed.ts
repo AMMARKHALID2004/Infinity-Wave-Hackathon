@@ -43,6 +43,13 @@ async function main() {
       if (error) throw new Error(`Creating ${account.ref}: ${error.message}`);
       id = data.user.id;
       users.set(account.email, id);
+    } else {
+      // Existing demo users must still have the documented demo credential.
+      const { error } = await admin.auth.admin.updateUserById(id, {
+        password: "Demo123!",
+        email_confirm: true,
+      });
+      if (error) throw new Error(`Updating ${account.ref}: ${error.message}`);
     }
     const { error } = await admin.from("profiles").upsert(
       { id, ...account }, { onConflict: "email" },

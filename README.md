@@ -15,13 +15,15 @@ Next.js App Router, TypeScript, Tailwind CSS, shadcn/ui, lucide-react, Zod, Supa
 5. Run `npm run auth:verify` to check the admin password against Supabase Auth.
 6. Run `npm run dev` and open [http://localhost:3000/login](http://localhost:3000/login).
 
+After the transcript flow creates projects, run `npm run test:access` with the dev server running. It checks manager and agent filtering and the transcript role gate. When no projects exist, it skips the project/task count assertions.
+
 Use the SQL Editor for this initial migration. Run it once on a fresh project before seeding; running it again will fail because the tables already exist. Supabase CLI migrations normally use timestamped filenames, while this task requested `0001_init.sql`.
 
 ## Demo accounts
 
 All passwords: `Demo123!`. Admin: `admin@novaworks.example`. Managers: `ayesha@novaworks.example`, `bilal@novaworks.example`, `hina@novaworks.example`. Agents: `ali@novaworks.example`, `hamza@novaworks.example`, `sara@novaworks.example`, `usman@novaworks.example`, `zain@novaworks.example`, `maryam@novaworks.example`.
 
-Run `npm run db:seed` again safely; existing auth users are reused. `npm run db:reset-demo` deletes all projects and tasks while keeping accounts.
+Run `npm run db:seed` again safely; existing auth users are reused and their demo passwords are restored to `Demo123!`. `npm run db:reset-demo` deletes all projects and tasks while keeping accounts.
 
 ## Transcript test and deployment
 

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { requireProfile, accessErrorResponse } from "@/lib/access";
+import { requireProfile, accessErrorResponse, sessionProfile } from "@/lib/access";
 import { createClient } from "@/lib/supabase/server";
 
 const LoginInput = z.object({ email: z.email(), password: z.string().min(1) }).strict();
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   if (error) return Response.json({ error: "Invalid email or password." }, { status: 401 });
   try {
     const profile = await requireProfile();
-    return Response.json({ profile });
+    return Response.json({ profile: sessionProfile(profile) });
   } catch (error) {
     await supabase.auth.signOut();
     return accessErrorResponse(error);

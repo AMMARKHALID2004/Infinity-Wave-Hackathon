@@ -198,6 +198,15 @@ export async function requireTranscriptAdmin() {
   return requireRole("ADMIN");
 }
 
+export function sessionProfile(profile: CurrentProfile) {
+  return {
+    ref: profile.ref,
+    name: profile.name,
+    role: profile.role,
+    specialization: profile.specialization,
+  };
+}
+
 export function accessErrorResponse(error: unknown) {
   if (error instanceof AccessError) return Response.json({ error: error.message }, { status: error.status });
   throw error;
